@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
         //call payment-service to get payment status and transactionId
         PaymentRequestDto paymentRequestDto = PaymentRequestDto.builder().orderId(orderRequest.getOrderId()).amount(orderRequest.getPrice()).build();
-        OrderResponseDto responseDto = restTemplate.postForObject("http://localhost:9192/payment/makePayment",
+        OrderResponseDto responseDto = restTemplate.postForObject("http://PAYMENT-SERVICE/payment/makePayment",
                                                                     paymentRequestDto, OrderResponseDto.class);
         String info = responseDto.getPaymentStatus().equalsIgnoreCase("SUCCESS") ? "Order placed!" : "Order failed, please try again";
         return OrderResponseDto.builder().paymentStatus(responseDto.getPaymentStatus())
